@@ -1,9 +1,11 @@
 {
   "name": "psql-shop",
   "version": "1.0.0",
-  "description": "internet shop by psql",
-  "main": "index.js",
+  "description": "internet shop by psql https://www.youtube.com/watch?v=H2GCkRF9eko&t=59s",
+  "main": "index.tsx",
+  "type": "module",
   "scripts": {
+    "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -15,5 +17,8 @@
     "pg": "^8.8.0",
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.27.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
   }
 }
