@@ -24,7 +24,7 @@ const connectDB = async ()=>{
 
 const start = async () => {
   try {
-
+connectDB()
     app.listen(PORT, () => {
       console.log(`server start at port:${PORT}`);
     });
