@@ -18,18 +18,15 @@ app.get('/', (req, res) => {
 });
 
 const connectDB = async ()=>{
-  await sequelize.authenticate();
-  await sequelize.sync();
+  await sequelize.authenticate().then(()=> {
+    console.log('Connection has been established successfully.')
+    sequelize.sync();
+  }).catch(e=>console.log({ e }));
 }
 
 const start = async () => {
-  try {
-connectDB()
-    app.listen(PORT, () => {
-      console.log(`server start at port:${PORT}`);
-    });
-  } catch (e) {
-    console.log(e);
-  }
+  connectDB().then(
+    ()=>app.listen(PORT,'localhost')).
+    catch(e=>console.log(e))
 };
-start();
+start().then(r => console.log(`server start at port:${PORT}`))
