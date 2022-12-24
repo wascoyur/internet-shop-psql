@@ -17,10 +17,14 @@ app.get('/', (req, res) => {
   res.status(200).json({message: 'working!!!'});
 });
 
+const connectDB = async ()=>{
+  await sequelize.authenticate();
+  await sequelize.sync();
+}
+
 const start = async () => {
   try {
-    await sequelize.authenticate();
-    await sequelize.sync();
+
     app.listen(PORT, () => {
       console.log(`server start at port:${PORT}`);
     });

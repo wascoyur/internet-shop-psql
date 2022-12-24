@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/PSQL-Shop.iml" filepath="$PROJECT_DIR$/PSQL-Shop.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Internet-shop-psql.iml" filepath="$PROJECT_DIR$/.idea/Internet-shop-psql.iml" />
     </modules>
   </component>
 </project>
