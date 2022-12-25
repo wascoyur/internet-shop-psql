@@ -2,10 +2,10 @@ import Router from 'express';
 import deviceController from "../controllers/deviceController.js";
 
 const router = new Router();
-const{addDevice,getDevices}=deviceController()
+const{addDevice,getDevice}=deviceController()
 
-router.get('/getdevice',getDevices);
-router.get('/getdevice/:id',getDevices);
-router.post('/adddevice',addDevice)
+router.get('/getdevice',getDevice);
+router.get('/getdevice/:id',getDevice);
+router.post('/add-device',addDevice)
 
 export {router};
