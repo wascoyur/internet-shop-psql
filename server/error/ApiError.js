@@ -1,12 +1,16 @@
-export const ApiError = (status, message) => {
-  Error.call(this);
+const ApiError = () => {
+  const NOT_FOUND = `404`;
+
   const badRequest = (status, message) => {
-    return new ApiError(404, message);
+    return new Error(NOT_FOUND, message);
   };
-  const internal = (message) => {
-    return new ApiError(500, message);
+  const internal = (status, message) => {
+    return new Error(500, message);
   };
-  const forbidden = (message) => {
-    return new ApiError(403, message);
+  const forbidden = (status, message) => {
+    return new Error(403, message);
   };
+  return {badRequest, internal, forbidden};
 };
+
+export {ApiError};
