@@ -1,16 +1,18 @@
-const ApiError = () => {
-  const NOT_FOUND = `404`;
-
+const ApiErrors = () => {
+  const apiError=(status,message)=>{
+    return {err:status,message}
+  }
   const badRequest = (status, message) => {
-    return new Error(NOT_FOUND, message);
+    return apiError(status,message);
   };
   const internal = (status, message) => {
-    return new Error(500, message);
+    return apiError(status, message);
   };
   const forbidden = (status, message) => {
-    return new Error(403, message);
+    return apiError(status, message);
   };
   return {badRequest, internal, forbidden};
 };
+export const ErrorValue = {NOT_FOUND:404,INTERNAL_ERR:500,FORBIDDEN:503};
 
-export {ApiError};
+export {ApiErrors};
