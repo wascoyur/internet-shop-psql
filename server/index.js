@@ -4,6 +4,7 @@ import sequelize from './db.js';
 import cors from 'cors';
 import routes from './routes/index.js';
 import morgan from 'morgan';
+import {errorHandler} from './middleware/ErrorHandlingMiddleware.js';
 
 dotenv.config();
 
@@ -13,20 +14,24 @@ app.use(cors());
 app.use(morgan('dev'));
 app.use(express.json());
 app.use('/api', routes);
+app.use(errorHandler);
 app.get('/', (req, res) => {
   res.status(200).json({message: 'working!!!'});
 });
 
-const connectDB = async ()=>{
-  await sequelize.authenticate().then(()=> {
-    console.log('Connection has been established successfully.')
-    sequelize.sync();
-  }).catch(e=>console.log({ e }));
-}
+const connectDB = async () => {
+  await sequelize
+    .authenticate()
+    .then(() => {
+      console.log('Connection has been established successfully.');
+      sequelize.sync();
+    })
+    .catch((e) => console.log({e}));
+};
 
 const start = async () => {
-  connectDB().then(
-    ()=>app.listen(PORT,'localhost')).
-    catch(e=>console.log(e))
+  connectDB()
+    .then(() => app.listen(PORT, 'localhost'))
+    .catch((e) => console.log(e));
 };
-start().then(r => console.log(`server start at port:${PORT}`))
+start().then((r) => console.log(`server start at port:${PORT}`));
