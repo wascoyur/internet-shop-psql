@@ -1,6 +1,6 @@
 const ApiErrors = () => {
   const apiError=(status,message)=>{
-    return {err:status,message}
+    return {status,message}
   }
   const badRequest = (status, message) => {
     return apiError(status,message);
