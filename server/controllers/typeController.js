@@ -1,7 +1,11 @@
+import { Type } from "../models/models.js";
+
 function typeController() {
-  const createType = async (req, res) => res.json(req.address);
+  const createType = async (req, res) => {
+    return res.json(req.address);
+  };
   const getType = async (req, res) => {
-    return res.json({ "getType": req.query });
+
   };
   return { createType,  getType, };
 }
