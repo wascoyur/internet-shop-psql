@@ -1,5 +1,5 @@
-import sequelize from '../db.js';
-import {DataTypes} from 'sequelize';
+import sequelize from "../db.js";
+import { DataTypes } from "sequelize";
 
 const User = sequelize.define('user', {
   id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
@@ -34,7 +34,7 @@ const Rating = sequelize.define('rating', {
 });
 const DeviceInfo = sequelize.define('device-info', {
   id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-  title: {type: DataTypes.String, allowNull: false},
+  title: {type: DataTypes.STRING, allowNull: false},
   descriotion: {type: DataTypes.STRING, allowNull: false},
 });
 const TypeBrand = sequelize.define('type-brand', {

@@ -1,9 +1,8 @@
-import { Sequelize } from 'sequelize'
+import { Sequelize } from "sequelize";
 
-const sequelize = new Sequelize(
-  'my-online-store',
-  'developer',
-  'developer',
-  { dialect: 'postgres', host: 'localhost', port: 5432 }
-)
-export default sequelize
+const sequelize = new Sequelize(process.env.DB_NAME, 'postgres', '1', {
+  dialect: 'postgres',
+  host: 'localhost',
+  port: 5432,
+});
+export default sequelize;

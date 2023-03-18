@@ -1,10 +1,10 @@
-import express from 'express';
-import dotenv from 'dotenv';
-import sequelize from './db.js';
-import cors from 'cors';
-import routes from './routes/index.js';
-import morgan from 'morgan';
-import {errorHandler} from './middleware/ErrorHandlingMiddleware.js';
+import express from "express";
+import dotenv from "dotenv";
+import sequelize from "./db.js";
+import cors from "cors";
+import routes from "./routes/index.js";
+import morgan from "morgan";
+import { errorHandler } from "./middleware/ErrorHandlingMiddleware.js";
 
 dotenv.config();
 
@@ -20,13 +20,14 @@ app.get('/', (req, res) => {
 });
 
 const connectDB = async () => {
+  // console.log(sequelize);
   await sequelize
     .authenticate()
     .then(() => {
       console.log('Connection has been established successfully.');
       sequelize.sync();
     })
-    .catch((e) => console.log({e}));
+    .catch((e) => console.log(`Error${e}`));
 };
 
 const start = async () => {
