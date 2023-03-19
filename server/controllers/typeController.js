@@ -6,10 +6,14 @@ function typeController() {
     return res.json(type);
   };
   const getType = async (req, res) => {
-    // const id = req.params;
-    console.log({req});
-    const types = await Type.findAll();
-    return res.json(types);
+    const name = req.params.id;
+    let param = {where: {name}};
+    if (!name) {
+      param = {};
+    }
+    const r = await Type.findAll(param);
+    console.log({r});
+    return res.json(r);
   };
   return {createType, getType};
 }
