@@ -93,7 +93,6 @@
     "new-parens": true,
     "no-angle-bracket-type-assertion": true,
     "no-consecutive-blank-lines": true,
-    // Позволяет вызывать промисы без обязательной обработки ответа.
     "no-floating-promises": false,
     "no-misused-new": true,
     "no-string-throw": true,
@@ -136,14 +135,12 @@
       "check-branch",
       "check-decl",
       "check-operator",
-      // 'check-module',
       "check-rest-spread",
       "check-type",
       "check-typecast",
       "check-type-operator",
       "check-preblock"
     ],
-    // TSLint ESLint rules.
     "no-constant-condition": [
       true,
       {
