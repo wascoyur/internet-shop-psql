@@ -10,73 +10,92 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model user {
-  id Int @id @default(autoincrement())
-  email String @unique
+// schema.prisma
+
+// User model
+model User {
+  id       Int      @id @default(autoincrement())
+  email    String   @unique
   password String
-  role String @default("User")
-  bucket bucket?
-  ratings raiting[]
+  role     String   @default("USER")
+  basket   Basket?
+  ratings  Rating[]
 }
 
-model bucket{
-  id Int @id @default(autoincrement())
-  userId Int @unique
-  user   user   @relation(fields: [userId], references: [id])
-  devices bucket_device[]
+// Basket model
+model Basket {
+  id          Int            @id @default(autoincrement())
+  userId      Int            @unique
+  user        User           @relation(fields: [userId], references: [id])
+  basketItems BasketDevice[]
 }
-model bucket_device{
-  id Int @id @default(autoincrement())
-  bucketId Int
-  bucket bucket @relation(fields: [bucketId], references: [id])
+
+// BasketDevice model
+model BasketDevice {
+  id       Int    @id @default(autoincrement())
+  basketId Int
+  basket   Basket @relation(fields: [basketId], references: [id])
   deviceId Int
-  device device @relation(fields: [deviceId],references: [id])
+  device   Device @relation(fields: [deviceId], references: [id])
 }
-model device{
-  id Int @id @default(autoincrement())
-  name String @unique
-  price Int
-  raiting Int @default(0)
-  img String
-  typeId Int
-  brandId Int
-  type type_brand @relation(fields: [typeId], references: [id])
-  brand brand @relation(fields: [brandId], references: [id])
-  ratings raiting[]
-  bucket_device bucket_device[]
-  device_info device_info[]
+
+// Device model
+model Device {
+  id          Int            @id @default(autoincrement())
+  name        String         @unique @map(name: "name") @db.VarChar(255)
+  price       Int
+  rating      Int            @default(0)
+  img         String
+  typeId      Int
+  brandId     Int
+  type        Type           @relation(fields: [typeId], references: [id])
+  brand       Brand          @relation(fields: [brandId], references: [id])
+  ratings     Rating[]
+  basketItems BasketDevice[]
+  deviceInfo  DeviceInfo[]
 }
-model brand{
-  id Int @id @default(autoincrement())
-  device device[]
-  types type[]
+
+// Type model
+model Type {
+  id        Int         @id @default(autoincrement())
+  name      String      @unique @map(name: "name") @db.VarChar(255)
+  devices   Device[]
+  brands    Brand[]
+  TypeBrand TypeBrand[]
 }
-model raiting{
-  id Int @id @default(autoincrement())
-  rate Int
-  userId Int
+
+// Brand model
+model Brand {
+  id        Int         @id @default(autoincrement())
+  name      String      @unique @map(name: "name") @db.VarChar(255)
+  devices   Device[]
+  types     Type[]
+  TypeBrand TypeBrand[]
+}
+
+// Rating model
+model Rating {
+  id       Int    @id @default(autoincrement())
+  rate     Int
+  userId   Int
   deviceId Int
-  user user @relation(fields: [userId], references: [id])
-  device device @relation(fields: [deviceId],references: [id])
+  user     User   @relation(fields: [userId], references: [id])
+  device   Device @relation(fields: [deviceId], references: [id])
 }
-model device_info{
-  id Int @id @default(autoincrement())
-  title String
+
+// DeviceInfo model
+model DeviceInfo {
+  id          Int    @id @default(autoincrement())
+  title       String
   description String
-  deviceId Int
-  device device @relation(fields: [deviceId], references: [id])
+  deviceId    Int
+  device      Device @relation(fields: [deviceId], references: [id])
+}
 
-}
-model type_brand{
-  typeId Int
+// TypeBrand model
+model TypeBrand {
+  typeId  Int   @id
   brandId Int
-  type type @relation(fields: [typeId], references: [id])
-  brand brand @relation(fields: [brandId], references: [id])
-  @@id([typeId, brandId])
-}
-model type {
-  id Int @id @default(autoincrement())
-  name String @unique @db.VarChar(255) @map(name: "name")
-  brands brand[]
-  typeBrands type_brand[]
+  type    Type  @relation(fields: [typeId], references: [id])
+  brand   Brand @relation(fields: [brandId], references: [id])
 }
