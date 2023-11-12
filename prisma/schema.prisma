@@ -1,0 +1,82 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model user {
+  id Int @id @default(autoincrement())
+  email String @unique
+  password String
+  role String @default("User")
+  bucket bucket?
+  ratings raiting[]
+}
+
+model bucket{
+  id Int @id @default(autoincrement())
+  userId Int @unique
+  user   user   @relation(fields: [userId], references: [id])
+  devices bucket_device[]
+}
+model bucket_device{
+  id Int @id @default(autoincrement())
+  bucketId Int
+  bucket bucket @relation(fields: [bucketId], references: [id])
+  deviceId Int
+  device device @relation(fields: [deviceId],references: [id])
+}
+model device{
+  id Int @id @default(autoincrement())
+  name String @unique
+  price Int
+  raiting Int @default(0)
+  img String
+  typeId Int
+  brandId Int
+  type type_brand @relation(fields: [typeId], references: [id])
+  brand brand @relation(fields: [brandId], references: [id])
+  ratings raiting[]
+  bucket_device bucket_device[]
+  device_info device_info[]
+}
+model brand{
+  id Int @id @default(autoincrement())
+  device device[]
+  types type[]
+}
+model raiting{
+  id Int @id @default(autoincrement())
+  rate Int
+  userId Int
+  deviceId Int
+  user user @relation(fields: [userId], references: [id])
+  device device @relation(fields: [deviceId],references: [id])
+}
+model device_info{
+  id Int @id @default(autoincrement())
+  title String
+  description String
+  deviceId Int
+  device device @relation(fields: [deviceId], references: [id])
+
+}
+model type_brand{
+  typeId Int
+  brandId Int
+  type type @relation(fields: [typeId], references: [id])
+  brand brand @relation(fields: [brandId], references: [id])
+  @@id([typeId, brandId])
+}
+model type {
+  id Int @id @default(autoincrement())
+  name String @unique @db.VarChar(255) @map(name: "name")
+  brands brand[]
+  typeBrands type_brand[]
+}
