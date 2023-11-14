@@ -1,12 +1,15 @@
 import express, { Router } from 'express';
 import {brandRouter}  from "./brandRouter";
+import { userRouter } from "./userRouter";
+import { typeRouter } from "./typeRouter";
+import { deviceRouter } from "./deviceRouter";
 
 const router:express.Router =  Router()
 
 
-// router.use('/user')
-// router.use('/type')
+router.use('/user',userRouter)
+router.use('/type',typeRouter)
 router.use('/brand',brandRouter)
-// router.use('/device')
+router.use('/device',deviceRouter)
 
 export default router
