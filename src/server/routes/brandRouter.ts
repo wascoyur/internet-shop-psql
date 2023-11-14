@@ -1,12 +1,10 @@
-import express, { Router, Request, Response } from 'express';
+import express, { Router } from 'express';
+import { createBrand, deleteBrand, getBrands } from "../controllers/brandController";
 
 export const router:express.Router=Router()
 
-router.post('/', (req: Request, res: Response) => {
-  res.json({brandRouter: "This is a POST request. brandRouter" });
-});
-router.get('/', (req: Request, res: Response) => {
-   res.json('brandRouter:This is a GET request.brandRouter');
-});
+router.post('/create', createBrand);
+router.get('/brand/', getBrands);
+router.delete('/delete/:id', deleteBrand);
 
 export { router as brandRouter }

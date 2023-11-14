@@ -1,12 +1,10 @@
-import express, { Router, Request, Response } from 'express';
+import express, { Router } from 'express';
+import { createType, getTypes, patchType } from "../controllers/typeController";
 
 export const router:express.Router=Router()
 
-router.post('/', (req: Request, res: Response) => {
-  res.json('This is a POST request. typeRouter');
-});
-router.get('/', (req: Request, res: Response) => {
-  res.json('This is a GET request typeRouter.');
-});
+router.post('/create', createType);
+router.get('/getTypes', getTypes);
+router.patch('/patchType/:id',patchType);
 
 export { router as typeRouter }

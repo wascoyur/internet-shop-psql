@@ -1,12 +1,15 @@
-import express, { Router, Request, Response } from 'express';
+// routes/deviceRouter.ts
+import express from 'express';
+import * as deviceController from '../controllers/deviceController';
 
-export const router:express.Router=Router()
+const router = express.Router();
 
-router.post('/', (req: Request, res: Response) => {
-  res.json({deviceRouter: "This is a POST request. deviceRouter" });
-});
-router.get('/', (req: Request, res: Response) => {
-  res.json('brandRouter:This is a GET request.deviceRouter');
-});
+router.post('/create', deviceController.createDevice);
+router.get('/devices', deviceController.getDevices);
+router.get('/devices/:id', deviceController.getDevices);
+router.patch('/update', deviceController.updateDevice);
+router.delete('/delete', deviceController.deleteDevice);
+
+
 
 export { router as deviceRouter }

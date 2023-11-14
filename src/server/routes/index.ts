@@ -9,7 +9,7 @@ const router:express.Router =  Router()
 
 router.use('/user',userRouter)
 router.use('/type',typeRouter)
-router.use('/brand',brandRouter)
+router.use('/brands',brandRouter)
 router.use('/device',deviceRouter)
 
 export default router
