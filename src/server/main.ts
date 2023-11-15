@@ -5,6 +5,7 @@ import { PrismaClient } from '@prisma/client'
 import cors from 'cors'
 import router from "./routes";
 import morganMiddleware from "./config/morganMiddleware";
+import { errorHandler } from "./middleware/ErrorHandleMiddleware";
 
 const prisma = new PrismaClient()
 
@@ -14,6 +15,7 @@ app.use(cors())
 app.use(morganMiddleware)
 app.use(express.json())
 app.use('/api',router)
+app.use(errorHandler)
 
 dotenv.config()
 
