@@ -23,3 +23,5 @@ dist-ssr
 *.sln
 *.sw?
 /.env
+/prisma/migrations/20231116050420_psql_shop/migration.sql
+/prisma/migrations/migration_lock.toml

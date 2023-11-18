@@ -7,7 +7,7 @@ import router from "./routes";
 import morganMiddleware from "./config/morganMiddleware";
 import { errorHandler } from "./middleware/ErrorHandleMiddleware";
 
-const prisma = new PrismaClient()
+export const prisma = new PrismaClient()
 
 
 const app = express();
@@ -19,16 +19,10 @@ app.use(errorHandler)
 
 dotenv.config()
 
-
 const PORT= parseInt(process.env.SERVER_PORT || "")||7001
 
-app.get("/users", async (_, res) => {
-  const users = await prisma.device.findFirst();
-  res.json(users);
-});
 
 ViteExpress.listen(app, PORT, () => {
-
         console.log(`Server is listening on port ${PORT}...`)
     }
 );

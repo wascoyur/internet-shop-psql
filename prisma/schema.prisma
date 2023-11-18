@@ -19,6 +19,8 @@ model User {
   id       Int      @id @default(autoincrement())
   email    String   @unique
   password String
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
   role     String   @default("USER")
   basket   Basket?
   ratings  Rating[]
@@ -28,6 +30,8 @@ model User {
 model Basket {
   id          Int            @id @default(autoincrement())
   userId      Int            @unique
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
   user        User           @relation(fields: [userId], references: [id])
   basketItems BasketDevice[]
 }
@@ -36,6 +40,8 @@ model Basket {
 model BasketDevice {
   id       Int    @id @default(autoincrement())
   basketId Int
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
   basket   Basket @relation(fields: [basketId], references: [id])
   deviceId Int
   device   Device @relation(fields: [deviceId], references: [id])
@@ -45,6 +51,8 @@ model BasketDevice {
 model Device {
   id          Int            @id @default(autoincrement())
   name        String         @unique @map(name: "name") @db.VarChar(255)
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
   price       Int
   rating      Int            @default(0)
   img         String
@@ -61,6 +69,8 @@ model Device {
 model Type {
   id        Int         @id @default(autoincrement())
   name      String      @unique @map(name: "name") @db.VarChar(255)
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
   devices   Device[]
   brands    Brand[]
   TypeBrand TypeBrand[]
@@ -70,6 +80,8 @@ model Type {
 model Brand {
   id        Int         @id @default(autoincrement())
   name      String      @unique @map(name: "name") @db.VarChar(255)
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
   devices   Device[]
   types     Type[]
   TypeBrand TypeBrand[]
@@ -79,6 +91,8 @@ model Brand {
 model Rating {
   id       Int    @id @default(autoincrement())
   rate     Int
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
   userId   Int
   deviceId Int
   user     User   @relation(fields: [userId], references: [id])
@@ -89,6 +103,8 @@ model Rating {
 model DeviceInfo {
   id          Int    @id @default(autoincrement())
   title       String
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
   description String
   deviceId    Int
   device      Device @relation(fields: [deviceId], references: [id])
@@ -98,6 +114,8 @@ model DeviceInfo {
 model TypeBrand {
   typeId  Int   @id
   brandId Int
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
   type    Type  @relation(fields: [typeId], references: [id])
   brand   Brand @relation(fields: [brandId], references: [id])
 }
