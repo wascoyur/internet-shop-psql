@@ -13,9 +13,9 @@ export const errorHandler = (
   }
 
   // Обработка ошибок Prisma
-  if (err instanceof Prisma.PrismaClientKnownRequestError) {
+  if (err instanceof Prisma.PrismaClientKnownRequestError || err instanceof Prisma.PrismaClientValidationError) {
     // Обработка конкретных ошибок Prisma, если необходимо
-    return res.status(500).json({ message: 'Ошибка Prisma',error:err });
+    return res.status(500).json({ message: `Ошибка Prisma`,error:`${err}` });
   }
 
   // Если это не экземпляр HttpError или PrismaClientKnownRequestError, обрабатываем как внутреннюю ошибку сервера

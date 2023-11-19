@@ -6,7 +6,6 @@ import cors from 'cors'
 import router from "./routes";
 import morganMiddleware from "./config/morganMiddleware";
 import { errorHandler } from "./middleware/ErrorHandleMiddleware";
-import { HttpError } from "./errors/apiErrors";
 
 export const prisma = new PrismaClient()
 
