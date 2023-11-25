@@ -1,17 +1,8 @@
-// user.model.ts
-type User = {
-  id: number;
-  email: string;
-  password: string;
-  createdAt: Date;
-  updatedAt: Date;
-  role: string;
-  basket?: Basket;
-  ratings?: Rating[];
-};
-
 // basket.model.ts
-type Basket = {
+import { User } from "./TypeUser";
+import jwt from 'jsonwebtoken';
+
+export type Basket = {
   id: number;
   userId: number;
   createdAt: Date;
@@ -73,7 +64,7 @@ type Brand = {
 };
 
 // rating.model.ts
-type Rating = {
+export type Rating = {
   id: number;
   rate: number;
   createdAt: Date;
@@ -104,3 +95,10 @@ type TypeBrand = {
   type: Type;
   brand: Brand;
 };
+declare global {
+  namespace Express {
+    interface Request {
+      authToken?: string|jwt.JwtPayload|undefined;
+    }
+  }
+}

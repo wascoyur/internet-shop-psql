@@ -6,7 +6,7 @@ export const errorHandler = (
   err: Error,
   req: Request,
   res: Response,
-  next: NextFunction,
+  next?: NextFunction,
   message?:string
 ) => {
   if (err instanceof HttpError) {
@@ -14,7 +14,7 @@ export const errorHandler = (
   }
 
   // Обработка ошибок аутентификации и авторизации
-  if (err.name === 'AuthenticationError') {
+  if (err.name === 'JsonWebTokenError') {
     return res.status(401).json({ message: 'Ошибка аутентификации', error: err.message });
   }
 

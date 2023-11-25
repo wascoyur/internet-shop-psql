@@ -1,4 +1,4 @@
-import express, { Router,Request,Response } from 'express';
+import express, { Router, } from 'express';
 import {brandRouter}  from "./brandRouter";
 import { userRouter } from "./userRouter";
 import { typeRouter } from "./typeRouter";
@@ -13,9 +13,7 @@ router.use('/type',typeRouter,errorHandler)
 router.use('/brands',brandRouter,errorHandler)
 router.use('/device',deviceRouter,errorHandler)
 
-router.use((req: Request, res: Response) => {
-  return res.status(404).json({ message: 'Ошибка при работе с типами товаров' });
-});
+router.use(errorHandler);
 
 
 export default router
