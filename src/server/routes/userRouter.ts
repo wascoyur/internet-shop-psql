@@ -8,7 +8,8 @@ export const router: express.Router = Router();
 
 router.post('/register', userController.register,errorHandler);
 router.post('/login', userController.login,errorHandler);
-router.get('/auth', isAuth,userController.checkAuth,errorHandler);
+router.get('/auth', isAuth,userController.updateToken,errorHandler);
+router.post('/reset-password', isAuth,userController.resetPassword,errorHandler);
 
 // Обработка ошибок должна быть добавлена в конце роутера
 router.use(errorHandler);

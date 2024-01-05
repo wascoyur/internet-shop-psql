@@ -88,7 +88,7 @@ const login = async (req: UserLogin, res: Response, next: NextFunction) => {
   }
 };
 
-const checkAuth = async (req: Request, res: Response, next: NextFunction) => {
+const updateToken = async (req: Request, res: Response, next: NextFunction) => {
   try {
     // Логика аутентификации пользователя
 
@@ -103,47 +103,33 @@ export const resetPassword = async (
   res: Response,
   next: NextFunction
 ) => {
-  try {
-    const { token, newPassword } = req.body;
+  const generateResetToken = async (email:string) => {
 
-    if (!token || !newPassword) {
-      return res.status(400).json({ message: 'Token and new password are required' });
+    try {
+      const user = await prisma.user.findUnique({
+        where: { email },
+      });
+
+      if (!user) {
+        throw new Error('User not found');
+      }
+
+      // Генерация JWT для запроса сброса пароля с токеном, который будет хранить email пользователя
+      const resetToken = jwt.sign({ email }, SECRET_KEY, { expiresIn: '1h' });
+
+      // Сохранение токена в базе данных или отправка на email пользователя
+
+      return ({ message: 'Reset token generated successfully', resetToken });
+    } catch (error) {
+      return errorHandler(error as Error,req,res)
     }
+  };
 
-    const decodedToken = jwt.verify(token, SECRET_KEY) as { id: number };
-
-    // Находим пользователя в базе данных
-    const user = await prisma.user.findUnique({
-      where: { id: decodedToken.id },
-    });
-
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
-
-    // Хешируем новый пароль
-    const hashedPassword = await bcrypt.hash(newPassword, 10);
-
-    // Обновляем пароль в базе данных
-    await prisma.user.update({
-      where: { id: user.id },
-      data: { password: hashedPassword },
-    });
-
-    // Создаем новый JWT токен с обновленными данными пользователя
-    const newToken = jwt.sign({ id: user.id, email: user.email }, SECRET_KEY, {
-      expiresIn: '24h',
-    });
-
-    res.json({ token: newToken, message: 'Password reset successful' });
-  } catch (error) {
-    next(error);
-  }
 };
 
 export default {
   register,
   login,
-  checkAuth,
+  updateToken,
   resetPassword
 };
