@@ -26,3 +26,5 @@ export interface UserLogin extends Request {
     password: string
   };
 }
+
+export type UserRole="admin"|"user"|"gues";

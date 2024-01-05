@@ -1,13 +1,14 @@
 import express, { Router ,Request,Response} from 'express';
 import { createBrand, deleteBrand, getBrands,patchBrand } from "../controllers/brandController";
 import { errorHandler } from "../middleware/ErrorHandleMiddleware";
+import {getRole} from '../controllers/userController';
 
 export const router:express.Router=Router()
 
-router.post('/create', createBrand,errorHandler);
+router.post('/create',getRole('admin'), createBrand,errorHandler);
 router.get('/brand/:id', getBrands,errorHandler);
-router.delete('/delete/:id', deleteBrand,errorHandler);
-router.patch('/edit/:id', patchBrand,errorHandler);
+router.delete('/delete/:id',getRole('admin'), deleteBrand,errorHandler);
+router.patch('/edit/:id',getRole('admin'), patchBrand,errorHandler);
 router.get('', getBrands,errorHandler);
 
 router.use((req: Request, res: Response) => {

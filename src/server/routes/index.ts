@@ -14,6 +14,7 @@ router.use('/brands',brandRouter,errorHandler)
 router.use('/device',deviceRouter,errorHandler)
 /*TODO: Добавить роуты для рейтинга*/
 /*TODO: Добавить роуты для Корзины*/
+/*TODO: Добавить Сброс пароля*/
 router.use(errorHandler);
 
 
