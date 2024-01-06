@@ -4,13 +4,13 @@ import ReactDOM from "react-dom/client";
 import {
   RouterProvider,
 } from "react-router-dom";
-import {mainRouter} from './app/RootRouter';
+import {Root} from './app/RootRouter';
 
 
 
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <RouterProvider router={mainRouter}/>
+    <RouterProvider router={Root}/>
   </React.StrictMode>
 );

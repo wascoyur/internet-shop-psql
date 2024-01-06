@@ -1,10 +1,9 @@
 import React from "react";
 import {createBrowserRouter}from "react-router-dom";
-import App from './App';
+import {Auth, Register} from '../feauters/auth/authRoutes';
 
-export const mainRouter = createBrowserRouter([
-  {
-  path: "/",
-  element: <App/>,
-}
+
+export const Root = createBrowserRouter([
+  Register,
+  Auth,
 ]);
