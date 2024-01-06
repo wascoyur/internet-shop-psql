@@ -1,5 +1,5 @@
 import React from "react"
 
-export const Goods=()=>{
+export const ListGoods=()=>{
   return<h1>Товары</h1>
 }

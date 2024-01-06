@@ -1,16 +1,15 @@
 import React from 'react';
-import App from '../../app/App';
 import {ErrorPage} from '../../app/ErrorPage';
 import RegistrationForm from './RegistrationForm';
 import {LoginForm} from './LoginForm';
 
-export const Register={
+export const SignUp={
   path: "/register",
   element: <RegistrationForm />,
   errorElement: <ErrorPage />,
 }
-export const Auth={
-  path: "/auth",
+export const SignIn={
+  path: "/login",
   element: <LoginForm />,
   errorElement: <ErrorPage />,
 }
