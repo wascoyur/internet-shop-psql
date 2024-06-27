@@ -1,7 +1,6 @@
 import {create} from 'zustand';
 import {immer} from 'zustand/middleware/immer';
 import {devtools, persist} from 'zustand/middleware';
-import {BucketItem, Category, Product, ServerErrors} from '../../entities/types.ts';
 import {UserProfile} from '../entities/UserProfile';
 
 type userProfileState = {
@@ -50,111 +49,111 @@ export const useProfileStore = create(
   ),
 );
 
-type ProductStore = {
-  products: Array<Product> | null;
-  bucket: Array<BucketItem> | null;
-  categories: Array<Category> | undefined;
-};
-type ProductActions = {
-  addToBucket: (bucketItem: BucketItem) => void;
-  getProductById: (idProduct: string) => Product | undefined;
-  addProductToStore: (product: Product[]) => void;
-  getBucket: () => BucketItem[] | null;
-  removeItemBucketById: (bucketId: string) => void;
-  removeProductById: (productId: string) => void;
-  setCategories: (arg0: Array<Category>) => void;
-  getCategoryById: (arg0: string) => Category | undefined;
-  removeCategoryById: (arg0: string) => void;
-};
-export const useProductStore = create(
-  devtools(
-    immer<ProductStore & ProductActions>((set, get) => ({
-      products: null,
-      bucket: null,
-      categories: undefined,
-      addProductToStore: (product: Product[]) =>
-        set((state) => {
-          const currentProducts = state.products || [];
-          state.products = [...currentProducts, ...product];
-        }),
-      addToBucket: (bucketItem: BucketItem) =>
-        set((state) => {
-          const currentBucket = state.bucket || [];
-          state.bucket = [...currentBucket, bucketItem];
-        }),
-      getProductById: (idProduct: string) => {
-        const filteredItem = () =>
-          get().products?.find((p) => p.id === idProduct);
-        return get().products?.length ? filteredItem() : undefined;
-      },
-      getBucket: () => {
-        return get().bucket;
-      },
-      removeItemBucketById: (bucketId: string) =>
-        set((state) => {
-          const newBucket = get().bucket?.filter(
-            (item) => item.productId !== bucketId,
-          );
-          state.bucket = newBucket || state.bucket;
-        }),
-      removeProductById: (productId: string) =>
-        set((state) => {
-          const newBucket = get().bucket?.filter(
-            (item) => item.productId !== productId,
-          );
-          state.bucket = newBucket || state.bucket;
-        }),
-      setCategories: (categories: Category[]) =>
-        set((state) => {
-          const currentCat = state.categories || new Array<Category>();
-          const newCat: Category[] = Array.from(
-            new Set(
-              [...currentCat, ...categories].map((c) => JSON.stringify(c)),
-            ),
-          ).map((str) => JSON.parse(str));
-          state.categories = newCat;
-        }),
-      getCategoryById: (categoryId: string) => {
-        const filteredCategory = () =>
-          get().categories?.find((c) => c.id === categoryId);
-        return get().categories?.length ? filteredCategory() : undefined;
-      },
-      removeCategoryById: (categoryId: string) =>
-        set((state) => {
-          state.categories = state.categories?.filter(
-            (item: { id: string; }) => item.id !== categoryId,
-          );
-        }),
-    })),
-
-    {
-      name: "Product",
-      anonymousActionType: "Product",
-    },
-  ),
-);
-
-type ErrorStore = {
-  errors: ServerErrors | undefined;
-};
-type ErrorActions = {
-  setError: (arg0: ServerErrors) => void;
-  clearErrors: () => void;
-};
-export const useErrorStore = create(
-  devtools(
-    immer<ErrorStore & ErrorActions>((set) => ({
-      errors: undefined,
-      setError: (err: ServerErrors) =>
-        set((state) => {
-          state.errors = err;
-        }),
-      clearErrors: () => {
-        set(() => ({
-          errors: undefined,
-        }));
-      },
-    })),
-    { name: "errors", anonymousActionType: "errors" },
-  ),
-);
+// type ProductStore = {
+//   products: Array<Product> | null;
+//   bucket: Array<BucketItem> | null;
+//   categories: Array<Category> | undefined;
+// };
+// type ProductActions = {
+//   addToBucket: (bucketItem: BucketItem) => void;
+//   getProductById: (idProduct: string) => Product | undefined;
+//   addProductToStore: (product: Product[]) => void;
+//   getBucket: () => BucketItem[] | null;
+//   removeItemBucketById: (bucketId: string) => void;
+//   removeProductById: (productId: string) => void;
+//   setCategories: (arg0: Array<Category>) => void;
+//   getCategoryById: (arg0: string) => Category | undefined;
+//   removeCategoryById: (arg0: string) => void;
+// };
+// export const useProductStore = create(
+//   devtools(
+//     immer<ProductStore & ProductActions>((set, get) => ({
+//       products: null,
+//       bucket: null,
+//       categories: undefined,
+//       addProductToStore: (product: Product[]) =>
+//         set((state) => {
+//           const currentProducts = state.products || [];
+//           state.products = [...currentProducts, ...product];
+//         }),
+//       addToBucket: (bucketItem: BucketItem) =>
+//         set((state) => {
+//           const currentBucket = state.bucket || [];
+//           state.bucket = [...currentBucket, bucketItem];
+//         }),
+//       getProductById: (idProduct: string) => {
+//         const filteredItem = () =>
+//           get().products?.find((p) => p.id === idProduct);
+//         return get().products?.length ? filteredItem() : undefined;
+//       },
+//       getBucket: () => {
+//         return get().bucket;
+//       },
+//       removeItemBucketById: (bucketId: string) =>
+//         set((state) => {
+//           const newBucket = get().bucket?.filter(
+//             (item) => item.productId !== bucketId,
+//           );
+//           state.bucket = newBucket || state.bucket;
+//         }),
+//       removeProductById: (productId: string) =>
+//         set((state) => {
+//           const newBucket = get().bucket?.filter(
+//             (item) => item.productId !== productId,
+//           );
+//           state.bucket = newBucket || state.bucket;
+//         }),
+//       setCategories: (categories: Category[]) =>
+//         set((state) => {
+//           const currentCat = state.categories || new Array<Category>();
+//           const newCat: Category[] = Array.from(
+//             new Set(
+//               [...currentCat, ...categories].map((c) => JSON.stringify(c)),
+//             ),
+//           ).map((str) => JSON.parse(str));
+//           state.categories = newCat;
+//         }),
+//       getCategoryById: (categoryId: string) => {
+//         const filteredCategory = () =>
+//           get().categories?.find((c) => c.id === categoryId);
+//         return get().categories?.length ? filteredCategory() : undefined;
+//       },
+//       removeCategoryById: (categoryId: string) =>
+//         set((state) => {
+//           state.categories = state.categories?.filter(
+//             (item: { id: string; }) => item.id !== categoryId,
+//           );
+//         }),
+//     })),
+//
+//     {
+//       name: "Product",
+//       anonymousActionType: "Product",
+//     },
+//   ),
+// );
+//
+// type ErrorStore = {
+//   errors: ServerErrors | undefined;
+// };
+// type ErrorActions = {
+//   setError: (arg0: ServerErrors) => void;
+//   clearErrors: () => void;
+// };
+// export const useErrorStore = create(
+//   devtools(
+//     immer<ErrorStore & ErrorActions>((set) => ({
+//       errors: undefined,
+//       setError: (err: ServerErrors) =>
+//         set((state) => {
+//           state.errors = err;
+//         }),
+//       clearErrors: () => {
+//         set(() => ({
+//           errors: undefined,
+//         }));
+//       },
+//     })),
+//     { name: "errors", anonymousActionType: "errors" },
+//   ),
+// );
