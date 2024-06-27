@@ -1,32 +1,29 @@
 import React from 'react';
 import {createBrowserRouter} from 'react-router-dom';
-import {RouteSignIn, RouteSignUp} from '../../features/auth/authRoutes';
-import Payment from '../../pages/Payment';
 import {ErrorPage} from '../ErrorPage';
-import App from '../App';
-import Bucket from '../../pages/Bucket';
+import Home from '../../pages/Home';
 
 
-export const RoutePayment={
-  path: "/payment",
-  element: <Payment />,
-  errorElement: <ErrorPage />,
-}
+// export const RoutePayment={
+//   path: "/payment",
+//   element: <Payment />,
+//   errorElement: <ErrorPage />,
+// }
+//
+// export const RouteBucket={
+//   path: "/bucket",
+//   element: <Bucket />,
+//   errorElement: <ErrorPage />,
+// }
 
-export const RouteBucket={
-  path: "/bucket",
-  element: <Bucket />,
-  errorElement: <ErrorPage />,
-}
-
-export const Root = createBrowserRouter([
+  export const Root = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <Home />,
     errorElement: <ErrorPage />
   },
-  RouteSignUp,
-  RouteSignIn,
-  RouteBucket,
-  RoutePayment
+  // RouteSignUp,
+  // RouteSignIn,
+  // RouteBucket,
+  // RoutePayment
 ]);
