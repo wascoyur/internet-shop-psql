@@ -1,10 +1,10 @@
 import React from 'react';
-import {RouterProvider} from 'react-router-dom';
-import {Root} from './routes/RootRouter';
+import Home from '../pages/Home';
 
 function App() {
+
   return (
-    <RouterProvider router = {Root} fallbackElement={<p>Loading...</p>}/>
+    <Home/>
   );
 }
 
