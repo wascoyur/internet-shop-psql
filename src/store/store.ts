@@ -1,8 +1,7 @@
 import {create} from 'zustand';
 import {immer} from 'zustand/middleware/immer';
 import {devtools, persist} from 'zustand/middleware';
-import {BucketItem, Category, Product, ServerErrors} from '../../entities/types.ts';
-import {UserProfile} from '../entities/UserProfile';
+import {UserProfile} from '@entities/UserProfile';
 
 type userProfileState = {
   token: string | undefined;
@@ -50,7 +49,7 @@ export const useProfileStore = create(
   ),
 );
 
-type ProductStore = {
+/*type ProductStore = {
   products: Array<Product> | null;
   bucket: Array<BucketItem> | null;
   categories: Array<Category> | undefined;
@@ -157,4 +156,4 @@ export const useErrorStore = create(
     })),
     { name: "errors", anonymousActionType: "errors" },
   ),
-);
+);*/
