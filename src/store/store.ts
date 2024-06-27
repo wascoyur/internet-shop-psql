@@ -1,12 +1,7 @@
-import { create } from "zustand";
-import { immer } from "zustand/middleware/immer";
-import { devtools, persist } from "zustand/middleware";
-import {
-  BucketItem,
-  Category,
-  Product,
-  ServerErrors,
-} from "../entities/types.ts";
+import {create} from 'zustand';
+import {immer} from 'zustand/middleware/immer';
+import {devtools, persist} from 'zustand/middleware';
+import {BucketItem, Category, Product, ServerErrors} from '../../entities/types.ts';
 import {UserProfile} from '../entities/UserProfile';
 
 type userProfileState = {

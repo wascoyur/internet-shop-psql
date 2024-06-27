@@ -1,5 +1,5 @@
 import React from 'react';
-import {ErrorPage} from '../../app/ErrorPage';
+import {ErrorPage} from '../../../app/ErrorPage';
 import RegistrationForm from './RegistrationForm';
 import {LoginForm} from './LoginForm';
 
