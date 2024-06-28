@@ -1,28 +1,12 @@
-import {createBrowserRouter} from 'react-router-dom';
-import {ErrorPage} from '../ErrorPage';
+import {createBrowserRouter, createRoutesFromElements, Route} from 'react-router-dom';
 import Home from '../../pages/Home';
+import {ControlPanel} from "../../pages/ControlPanel.tsx";
 
 
-// export const RoutePayment={
-//   path: "/payment",
-//   element: <Payment />,
-//   errorElement: <ErrorPage />,
-// }
-//
-// export const RouteBucket={
-//   path: "/bucket",
-//   element: <Bucket />,
-//   errorElement: <ErrorPage />,
-// }
+const rootRoute = <Route element={<Home/>}        path="/"   />
+const routeControlPanel=<Route path="/control"  element={<ControlPanel /> }                />
 
-  export const Root = createBrowserRouter([
-  {
-    path: "/",
-    element: <Home />,
-    errorElement: <ErrorPage />
-  },
-  // RouteSignUp,
-  // RouteSignIn,
-  // RouteBucket,
-  // RoutePayment
-]);
+const routes = createRoutesFromElements([rootRoute, routeControlPanel])
+
+export const Root = createBrowserRouter((routes));
+
