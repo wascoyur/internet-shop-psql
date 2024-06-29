@@ -9,10 +9,10 @@ type Props = {
   list?: ItemMenu[];
 };
 
-export const Menu = (props: Props): React.ReactNode => {
+export const MenuItems = (props: Props): React.ReactNode => {
   const { className, list } = props;
 
-  const items = list?.map((i) => {
+  return list?.map((i) => {
     return (
       <div className={classNames(s.link, className)} key={i.target}>
         <NavLink to={i.target} key={i.target}>
@@ -24,6 +24,4 @@ export const Menu = (props: Props): React.ReactNode => {
       </div>
     );
   });
-
-  return items;
 };

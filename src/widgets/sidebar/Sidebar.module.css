@@ -2,5 +2,10 @@
     padding: 1rem;
     max-width: 100%;
     background-color: var(--color-white);
-
+    border-radius: 15px;
+    box-shadow: var(--box-shadow);
+    cursor: pointer;
+    &:hover{
+        box-shadow: none;
+    }
 }

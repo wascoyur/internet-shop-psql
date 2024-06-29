@@ -16,6 +16,7 @@ header {
 
 aside{
     grid-area: aside;
+    padding-left: 1rem;
 }
 
 main {
