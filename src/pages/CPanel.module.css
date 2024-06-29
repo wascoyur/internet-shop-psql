@@ -1,4 +1,23 @@
+
 .root{
    display: grid;
-   background-color: #f9f9f9;
+   grid-template-areas:
+           ".       head   head ."
+           "aside  main   main  main"
+           "aside  main   main  main" ;
+    background-color: var(--color-light);
+    height: 100vh;
+}
+
+header {
+    grid-area: head;
+    grid-auto-columns: 1fr;
+}
+
+aside{
+    grid-area: aside;
+}
+
+main {
+    grid-area: main;
 }

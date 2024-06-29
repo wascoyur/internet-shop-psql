@@ -1,0 +1,28 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  height: 100vh;
+}
+
+.icon {
+  padding-right: 0.6rem;
+}
+
+.link {
+  display: flex;
+  padding: 0.5rem;
+  max-height: 100%;
+  > a {
+    display: flex;
+    text-decoration: none;
+  }
+}
+
+.message{
+}
+
+.close {
+  display: none;
+}

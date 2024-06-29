@@ -1,24 +1,6 @@
-.root {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  max-width: 40%;
-  height: 100vh;
-}
+.root{
+    padding: 1rem;
+    max-width: 100%;
+    background-color: var(--color-white);
 
-.icon {
-  padding-right: 0.6rem;
-}
-
-.link {
-  display: flex;
-  padding: 0.5rem;
-  > a {
-    display: flex;
-    text-decoration: none;
-  }
-}
-
-.message{
 }
