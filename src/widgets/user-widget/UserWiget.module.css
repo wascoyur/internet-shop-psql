@@ -1,0 +1,34 @@
+.root {
+  background-color: var(--color-white);
+  box-shadow: var(--box-shadow);
+  border-radius: 15px;
+  padding: 1rem;
+}
+
+h4 {
+  border-bottom: 1px solid var(--color-info-dark);
+  margin-bottom: 0.5rem;
+  padding: 0.35rem;
+}
+.grid-table {
+  display: grid;
+  /*grid-template-columns: auto auto; !* Определяет две колонки равной ширины *!*/
+  gap: 10px; /* Отступ между ячейками */
+}
+
+.header {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  font-weight: bold;
+  text-align: center;
+}
+
+.row {
+  display: contents; /* Скрыть контейнеры строк, чтобы они не влияли на макет */
+}
+
+.item {
+  padding: 5px;
+  text-align: center;
+}
+

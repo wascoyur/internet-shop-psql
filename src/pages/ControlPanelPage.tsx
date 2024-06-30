@@ -1,4 +1,4 @@
-import styles from "./CPanel.module.css";
+import styles from "./CPanelPage.module.css";
 import { listItems } from "../assets/mock/asideItems.ts";
 import { SideBar } from "../widgets/sidebar/Sidebar.tsx";
 import { MenuItems } from "../widgets/menu/MenuItems.tsx";
