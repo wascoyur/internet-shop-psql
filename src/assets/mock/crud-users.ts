@@ -17,4 +17,12 @@ export const users: User[] = [
     name: "Rukp",
     lastName: "sdergi",
   },
+  {
+    id: 3,
+    email: "3qwer@maiwel.ru",
+    role: [{ user: true, admin: true }],
+    password: "password",
+    name: "Ferdinand",
+    lastName: "Superjur",
+  },
 ];

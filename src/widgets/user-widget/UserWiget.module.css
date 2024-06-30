@@ -24,7 +24,8 @@ h4 {
 }
 
 .row {
-  display: contents; /* Скрыть контейнеры строк, чтобы они не влияли на макет */
+  display: flex;
+  flex-direction: row;
 }
 
 .item {
