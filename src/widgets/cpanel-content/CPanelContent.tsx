@@ -14,7 +14,6 @@ export const CPanelContent = () => {
 };
 
 const UserWidget = () => {
-  const list = users;
   const headers = Object.keys(users[0]);
 
   const extractData = (array: User[]) => {
@@ -48,9 +47,9 @@ const UserWidget = () => {
 
 const Row = (props: { data: (string | number | Roles)[] }) => {
   const result = props.data.map((tb) => {
-    return <div>{JSON.stringify(tb)}</div>;
+    return <div className={widget.cell}>{JSON.stringify(tb)}</div>;
   });
-
+  console.log(result);
   return <div className={widget.row}>{result}</div>;
 };
 

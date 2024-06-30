@@ -24,12 +24,20 @@ h4 {
 }
 
 .row {
-  display: flex;
-  flex-direction: row;
-}
-
-.item {
-  padding: 5px;
+  display: grid;
+  grid-template-columns: repeat(6,1fr);
   text-align: center;
 }
 
+.cell {
+  display: grid;
+  grid-template-columns: minmax(3rem,5rem);
+  padding: 5px;
+  text-align: center;
+  overflow: clip;
+}
+
+.item{
+  display: grid;
+  grid-template-columns: minmax(3rem,5rem);
+}
