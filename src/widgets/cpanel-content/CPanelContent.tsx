@@ -2,6 +2,7 @@ import s from "./CPanelContent.module.css";
 import widget from "../user-widget/UserWiget.module.css";
 import { users } from "../../assets/mock/crud-users.ts";
 import { Roles, User } from "../../app/types/user.ts";
+import classNames from "classnames";
 
 type TableBody = [(string | number | Roles)[]];
 
@@ -40,6 +41,7 @@ const UserWidget = () => {
       {extractData(users).map((row) => {
         return <Row data={row} />;
       })}
+      <FooterWidget />
     </div>
   );
 };
@@ -97,4 +99,29 @@ const getPermissions = (props: Roles): string[] => {
     permissions.push(key[0]);
   }
   return permissions;
+};
+
+const FooterWidget = () => {
+  return (
+    <div className={widget.footer}>
+      <div className={widget.item_control_user}>
+        <span className={classNames("material-symbols-outlined", widget.icon)}>
+          person_add
+        </span>
+        <div className={classNames(widget.item_message_user)}>Add user</div>
+      </div>
+      <div className={widget.item_control_user}>
+        <span className={classNames("material-symbols-outlined", widget.icon)}>
+          person_remove
+        </span>
+        <div className={classNames(widget.item_message_user)}>Delete user</div>
+      </div>
+      <div className={widget.item_control_user}>
+        <span className={classNames("material-symbols-outlined", widget.icon)}>
+          person_edit
+        </span>
+        <div className={classNames(widget.item_message_user)}>Edit user</div>
+      </div>
+    </div>
+  );
 };
