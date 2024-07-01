@@ -9,6 +9,17 @@ export const UserWidget = () => {
   const headers = Object.keys(users[0]);
   headers.unshift("ch");
 
+  return (
+    <div className={widget.root}>
+      <h4>User wiget CRUD operation</h4>
+      <Headers headers={headers} />
+      <ViewData />
+      <FooterWidget />
+    </div>
+  );
+};
+
+const ViewData = () => {
   const viewCurrentData = (array: User[]) => {
     // Используем reduce для агрегации данных в двумерный массив
     const data = array.reduce(
@@ -25,21 +36,20 @@ export const UserWidget = () => {
     return data;
   };
 
-  return (
-    <div className={widget.root}>
-      <h4>User wiget CRUD operation</h4>
-      <Headers headers={headers} />
-      {viewCurrentData(users).map((row) => {
-        return <Row data={row} />;
-      })}
-      <FooterWidget />
-    </div>
-  );
+  const currentView = viewCurrentData(users).map((row) => {
+    return <Row data={row} key={row.toString()} />;
+  });
+
+  return currentView;
 };
 
 const Row = (props: { data: (string | number | Roles)[] }) => {
   const result = props.data.map((tb) => {
-    return <div className={widget.cell}>{renderCellContent(tb)}</div>;
+    return (
+      <div className={widget.cell} key={tb.toString()}>
+        {renderCellContent(tb)}
+      </div>
+    );
   });
   return (
     <div className={widget.row}>
@@ -57,7 +67,11 @@ const Checkbox = () => {
 
 const Headers = ({ headers }: { headers: string[] }) => {
   const result = headers.map((h) => {
-    return <div className={widget.item}>{h}</div>;
+    return (
+      <div className={widget.item} key={h}>
+        {h}
+      </div>
+    );
   });
 
   return <div className={widget.header}>{result}</div>;
@@ -80,11 +94,14 @@ const renderCellContent = (dataItem: string | number | Roles) => {
       return null;
   }
 };
+
 const RolesComponent = ({ perm }: { perm: string[] }) => {
   return (
     <div>
       {perm.map((r) => (
-        <span className={widget.permission}>{r.charAt(0).toUpperCase()}</span>
+        <span className={widget.permission} key={r}>
+          {r.charAt(0).toUpperCase()}
+        </span>
       ))}
     </div>
   );
@@ -103,12 +120,16 @@ const getPermissions = (props: Roles): string[] => {
 };
 
 const FooterWidget = () => {
-  const clickHandler = (e: React.MouseEvent<HTMLDivElement>) => {};
+  const clickHandler = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    const action = e.currentTarget.dataset.action;
+  };
 
   return (
     <div className={widget.footer}>
       <div
         className={widget.item_control_user}
+        data-action="add"
         onClick={(e) => clickHandler(e)}
       >
         <span className={classNames("material-symbols-outlined", widget.icon)}>
@@ -116,13 +137,21 @@ const FooterWidget = () => {
         </span>
         <div className={classNames(widget.item_message_user)}>Add user</div>
       </div>
-      <div className={widget.item_control_user}>
+      <div
+        className={widget.item_control_user}
+        data-action="delete"
+        onClick={(e) => clickHandler(e)}
+      >
         <span className={classNames("material-symbols-outlined", widget.icon)}>
           person_remove
         </span>
         <div className={classNames(widget.item_message_user)}>Delete user</div>
       </div>
-      <div className={widget.item_control_user}>
+      <div
+        className={widget.item_control_user}
+        data-action="edit"
+        onClick={(e) => clickHandler(e)}
+      >
         <span className={classNames("material-symbols-outlined", widget.icon)}>
           person_edit
         </span>

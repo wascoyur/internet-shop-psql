@@ -62,6 +62,12 @@ h4 {
 .item_control_user{
   display: flex;
   align-items: center;
+  border: 1px solid var(--color-primary);
+  border-radius: 0.3rem;
+  padding: 0.25rem;
+  &:hover{
+    background-color: var(--color-light);
+  }
 }
 
 .icon {
