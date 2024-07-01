@@ -4,7 +4,12 @@ export const users: User[] = [
   {
     id: 1,
     email: "mulo@mail.ru",
-    role: [{ user: true }],
+    role: {
+      manager: true,
+      user: true,
+      admin: true,
+    },
+
     password: "password",
     name: "FirsttNAme",
     lastName: "Fwasre",
@@ -12,7 +17,7 @@ export const users: User[] = [
   {
     id: 2,
     email: "qwer@mail.ru",
-    role: [{ user: true }],
+    role: { user: true },
     password: "password",
     name: "Rukp",
     lastName: "sdergi",
@@ -20,7 +25,7 @@ export const users: User[] = [
   {
     id: 3,
     email: "3qwer@maiwel.ru",
-    role: [{ user: true, admin: true }],
+    role: { user: true, admin: true },
     password: "password",
     name: "Ferdinand",
     lastName: "Superjur",

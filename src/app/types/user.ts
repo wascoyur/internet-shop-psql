@@ -4,12 +4,12 @@ export type User = {
   lastName: string;
   email: string;
   password: string;
-  role: Roles[];
+  role: Roles;
 };
 
 export type Roles = {
-  admin?: boolean;
-  owner?: boolean;
-  user: boolean;
-  manager?: boolean;
+  admin?: boolean | undefined;
+  owner?: boolean | undefined;
+  user: boolean | undefined;
+  manager?: boolean | undefined;
 };
