@@ -1,20 +1,25 @@
 import widget from "./UserWiget.module.css";
+import { useState } from "react";
 import { Roles, User } from "../../app/types/user.ts";
 import { users } from "../../assets/mock/crud-users.ts";
-import classNames from "classnames";
+import { getPermissions, isAnyRolesIsExist } from "./userWigetHelpers.ts";
+import { FooterWidget } from "./FooterWidget.tsx";
+import { DataToAdded } from "./FormInput.tsx";
 
 type TableBody = [(string | number | Roles)[]];
 
 export const UserWidget = () => {
   const headers = Object.keys(users[0]);
   headers.unshift("ch");
+  const [showForm, setShowForm] = useState<boolean>(false);
 
   return (
     <div className={widget.root}>
       <h4>User wiget CRUD operation</h4>
       <Headers headers={headers} />
       <ViewData />
-      <FooterWidget />
+      <DataToAdded showForm={showForm} setShowForm={setShowForm} />
+      <FooterWidget setShowForm={setShowForm} />
     </div>
   );
 };
@@ -37,14 +42,15 @@ const ViewData = () => {
   };
 
   const currentView = viewCurrentData(users).map((row) => {
-    return <Row data={row} key={row.toString()} />;
+    return <RowView data={row} key={row.toString()} />;
   });
 
   return currentView;
 };
 
-const Row = (props: { data: (string | number | Roles)[] }) => {
-  const result = props.data.map((tb) => {
+const RowView = (props: { data: (string | number | Roles)[] }) => {
+  const { data } = props;
+  const currentData = data.map((tb) => {
     return (
       <div className={widget.cell} key={tb.toString()}>
         {renderCellContent(tb)}
@@ -54,15 +60,15 @@ const Row = (props: { data: (string | number | Roles)[] }) => {
   return (
     <div className={widget.row}>
       <span className={widget.cell}>
-        <Checkbox />
+        <Checker />
       </span>
-      {result}
+      {currentData}
     </div>
   );
 };
 
-const Checkbox = () => {
-  return <input type="radio" />;
+const Checker = () => {
+  return <input type="radio" checked={false} />;
 };
 
 const Headers = ({ headers }: { headers: string[] }) => {
@@ -103,60 +109,6 @@ const RolesComponent = ({ perm }: { perm: string[] }) => {
           {r.charAt(0).toUpperCase()}
         </span>
       ))}
-    </div>
-  );
-};
-
-const isAnyRolesIsExist = (props: Roles) => {
-  return Object.keys(props).length;
-};
-
-const getPermissions = (props: Roles): string[] => {
-  const permissions: string[] = [];
-  for (const key in props) {
-    permissions.push(key[0]);
-  }
-  return permissions;
-};
-
-const FooterWidget = () => {
-  const clickHandler = (e: React.MouseEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    const action = e.currentTarget.dataset.action;
-  };
-
-  return (
-    <div className={widget.footer}>
-      <div
-        className={widget.item_control_user}
-        data-action="add"
-        onClick={(e) => clickHandler(e)}
-      >
-        <span className={classNames("material-symbols-outlined", widget.icon)}>
-          person_add
-        </span>
-        <div className={classNames(widget.item_message_user)}>Add user</div>
-      </div>
-      <div
-        className={widget.item_control_user}
-        data-action="delete"
-        onClick={(e) => clickHandler(e)}
-      >
-        <span className={classNames("material-symbols-outlined", widget.icon)}>
-          person_remove
-        </span>
-        <div className={classNames(widget.item_message_user)}>Delete user</div>
-      </div>
-      <div
-        className={widget.item_control_user}
-        data-action="edit"
-        onClick={(e) => clickHandler(e)}
-      >
-        <span className={classNames("material-symbols-outlined", widget.icon)}>
-          person_edit
-        </span>
-        <div className={classNames(widget.item_message_user)}>Edit user</div>
-      </div>
     </div>
   );
 };
