@@ -2,8 +2,10 @@ export type User = {
   id: number;
   name: string;
   lastName: string;
+  firstName: string;
   email: string;
   password: string;
+  phoneNumber: string;
   role: Roles;
 };
 
