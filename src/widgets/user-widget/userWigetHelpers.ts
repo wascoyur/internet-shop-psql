@@ -39,12 +39,11 @@ export const validateFields = (formData: FormData): boolean => {
   ];
 
   for (const field of requiredFields) {
-    if (!formData.has(field)) {
+    if (!formData.has(field) || !isExistValue(field)) {
       return false; // Если хотя бы одно обязательное поле отсутствует
     }
 
     if (field === "roles") {
-      //TODO: проверить роли
       const roles = formData.get("roles");
       return rolesVerify(roles);
     }
@@ -64,6 +63,11 @@ export const validateFields = (formData: FormData): boolean => {
         : false;
     }
     return false;
+  }
+
+  function isExistValue(key: string): boolean {
+    const value = formData.get(key) as string;
+    return value.length > 0;
   }
 
   return true; // Все обязательные поля присутствуют
