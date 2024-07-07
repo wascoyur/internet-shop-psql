@@ -53,7 +53,7 @@ export const validateFields = (formData: FormData): boolean => {
   function rolesVerify(arg: FormDataEntryValue | null) {
     const allowedVals = ["A", "U", "M", "O"].sort();
     if (typeof arg === "string") {
-      const rolesValue = arg.toUpperCase().split("").sort();
+      const rolesValue = [...new Set(arg.toUpperCase().split(""))].sort();
 
       return rolesValue.length > 0
         ? rolesValue.every((role) => {
