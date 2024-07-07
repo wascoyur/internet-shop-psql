@@ -13,6 +13,8 @@ export const users: User[] = [
     password: "password",
     name: "FirsttNAme",
     lastName: "Fwasre",
+    firstName: "fi",
+    phone: "854",
   },
   {
     id: 2,
@@ -21,6 +23,8 @@ export const users: User[] = [
     password: "password",
     name: "Rukp",
     lastName: "sdergi",
+    firstName: "fi2",
+    phone: "125",
   },
   {
     id: 3,
@@ -29,5 +33,7 @@ export const users: User[] = [
     password: "password",
     name: "Ferdinand",
     lastName: "Superjur",
+    firstName: "fi3",
+    phone: "7895",
   },
 ];
