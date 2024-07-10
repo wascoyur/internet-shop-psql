@@ -91,6 +91,7 @@ h4 {
   gap: 0.5rem;
   justify-content: space-evenly;
 }
+/*//TODO: переделать на флексы https://polypane.app/blog/4-css-layouts-without-using-media-queries/*/
 .user_form_cell {
   display: flex;
   flex-direction: column;

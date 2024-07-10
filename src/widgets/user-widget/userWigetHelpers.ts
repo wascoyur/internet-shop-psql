@@ -1,16 +1,11 @@
 import { Roles } from "../../app/types/user.ts";
 import { UserData } from "./FormInput.tsx";
 
-export const isAnyRolesIsExist = (props: Roles) => {
-  return Object.keys(props).length;
-};
-
-export const getPermissions = (props: Roles): string[] => {
-  const permissions: string[] = [];
-  for (const key in props) {
-    permissions.push(key[0]);
-  }
-  return permissions;
+export const ROLES_MAP: { [key: string]: string } = {
+  A: "ADMIN",
+  U: "USER",
+  M: "MANAGER",
+  O: "OWNER",
 };
 
 const requiredFields = [
@@ -22,6 +17,18 @@ const requiredFields = [
   "phone",
   "name",
 ];
+
+export const isAnyRolesIsExist = (props: Roles) => {
+  return Object.keys(props).length;
+};
+
+export const getPermissions = (props: Roles): string[] => {
+  const permissions: string[] = [];
+  for (const key in props) {
+    permissions.push(key[0]);
+  }
+  return permissions;
+};
 
 export const getFormData = (formData: FormData): UserData | undefined => {
   // @ts-expect-error неизвестная ошибка
@@ -58,7 +65,8 @@ export const validateFields = (formData: FormData): boolean => {
   }
 
   function rolesVerify(arg: FormDataEntryValue | null) {
-    const allowedVals = ["A", "U", "M", "O"].sort();
+    const allowedVals = Object.keys(ROLES_MAP).sort();
+
     if (typeof arg === "string") {
       const rolesValue = [...new Set(arg.toUpperCase().split(""))].sort();
 

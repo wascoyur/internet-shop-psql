@@ -1,60 +1,98 @@
 import widget from "./UserWiget.module.css";
 import { addUser } from "../../shared/api/accountService.ts";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import classNames from "classnames";
-import { getFormData, validateFields } from "./userWigetHelpers.ts";
-import { User } from "../../app/types/user.ts";
+import { getFormData, ROLES_MAP } from "./userWigetHelpers.ts";
+import { Roles, User } from "../../app/types/user.ts";
 
-export const FormRow = () => {
+export type UserData = {
+  email: string;
+  password: string;
+  firstname: string;
+  lastname: string;
+  roles: string;
+  phone: string;
+  name: string;
+};
+
+type FormRow = {
+  setShowForm: (arg0: boolean) => void;
+};
+
+export const FormRow = (props: FormRow) => {
   const [isReadyToSend, setIsReadyToSend] = useState(false);
-  const [isEmailValid, setIsEmailValid] = useState(false);
-  const [isPasswordValid, setIsPasswordValid] = useState(false);
-  const [isFirsNameValid, setIsFirsNameValid] = useState(false);
-  const [isLastNameValid, setIsLastNameValid] = useState(false);
-  const [isRolesValid, setIsRolesValid] = useState(false);
-  const [isPhoneValid, setIsPhoneValid] = useState(false);
-
-  useEffect(() => {
-    isEmailValid &&
-      isPasswordValid &&
-      isFirsNameValid &&
-      isLastNameValid &&
-      isPhoneValid &&
-      setIsReadyToSend(true);
-  }, [
-    isEmailValid,
-    isPasswordValid,
-    isFirsNameValid,
-    isLastNameValid,
-    isRolesValid,
-  ]);
+  const [, setUserData] = useState<UserData | undefined>();
 
   const handleChangeForm = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    const isValid = validateFields(formData);
-    isValid ? setIsReadyToSend(true) : setIsReadyToSend(false);
+    const data: UserData | undefined = getFormData(formData);
+    if (data) {
+      setUserData(data);
+      return setIsReadyToSend(true);
+    }
+    setIsReadyToSend(false);
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const formData = new FormData(event.currentTarget);
+    const data = getFormData(formData);
 
-    const userData = (): Omit<User, "id"> | undefined => {
-      const data = getFormData(formData);
+    const userData = (arg: UserData): Omit<User, "id"> | undefined => {
+      if (!arg) return;
 
-      const { email, password, phone, roles, lastName, firstName } = data;
+      const {
+        email,
+        password,
+        firstname,
+        lastname,
+        name,
+        phone,
+        roles: rolesValue,
+      } = arg;
 
-      return { email, password, firstName, lastName, roles, phone, name };
+      const assignableRoles = [...new Set(rolesValue.toUpperCase().split(""))];
+
+      const roles = (): Roles => {
+        let rolesValue: Roles = { user: true };
+
+        for (const [key, value] of Object.entries(ROLES_MAP)) {
+          if (assignableRoles.includes(key)) {
+            rolesValue = { ...rolesValue, [value.toLowerCase()]: true };
+          }
+        }
+        return rolesValue;
+      };
+
+      return {
+        email,
+        password,
+        firstName: firstname,
+        lastName: lastname,
+        roles: roles(),
+        phone,
+        name,
+      };
     };
 
-    if (!userData) {
+    if (!data || !userData(data)) {
       setIsReadyToSend(false);
       return;
     }
+    console.log(userData(data));
+    try {
+      await addUser(userData(data)).then(() => hideAddUserForm());
+    } catch (e) {
+      hideAddUserForm();
+      console.log(e);
+    }
+  };
 
-    await addUser(userData).then(() => setIsReadyToSend(false));
+  const hideAddUserForm = () => {
+    props.setShowForm(false);
+    setIsReadyToSend(false);
   };
 
   return (
@@ -64,12 +102,7 @@ export const FormRow = () => {
         onSubmit={handleSubmit}
         onChange={handleChangeForm}
       >
-        <div
-          className={classNames(
-            widget.user_form_cell,
-            isReadyToSend && !isEmailValid ? "invalid" : null,
-          )}
-        >
+        <div className={classNames(widget.user_form_cell)}>
           <label form="email">email</label>
           <input type="email" name="email" placeholder="email" />
         </div>
@@ -84,6 +117,10 @@ export const FormRow = () => {
         <div className={widget.user_form_cell}>
           <label form="firstname">first name</label>
           <input type="text" name="firstname" placeholder="first name" />
+        </div>
+        <div className={widget.user_form_cell}>
+          <label form="name">name</label>
+          <input type="text" name="name" placeholder="name" />
         </div>
         <div className={widget.user_form_cell}>
           <label form="lastname">Last name</label>
@@ -106,5 +143,5 @@ type DataToAdd = {
 export const DataToAdded = (props: DataToAdd) => {
   const { showForm, setShowForm } = props;
 
-  return showForm ? <FormRow /> : null;
+  return showForm ? <FormRow setShowForm={setShowForm} /> : null;
 };

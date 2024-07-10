@@ -4,7 +4,7 @@ export const users: User[] = [
   {
     id: 1,
     email: "mulo@mail.ru",
-    role: {
+    roles: {
       manager: true,
       user: true,
       admin: true,
@@ -19,7 +19,7 @@ export const users: User[] = [
   {
     id: 2,
     email: "qwer@mail.ru",
-    role: { user: true },
+    roles: { user: true },
     password: "password",
     name: "Rukp",
     lastName: "sdergi",
@@ -29,7 +29,7 @@ export const users: User[] = [
   {
     id: 3,
     email: "3qwer@maiwel.ru",
-    role: { user: true, admin: true },
+    roles: { user: true, admin: true },
     password: "password",
     name: "Ferdinand",
     lastName: "Superjur",
