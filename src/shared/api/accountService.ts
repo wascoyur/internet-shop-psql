@@ -1,7 +1,8 @@
 import { User } from "../../app/types/user.ts";
 
 export const addUser = async (props: Omit<User, "id"> | undefined) => {
-  const URL = `${import.meta.url}/account/user`;
+  const URL = `${import.meta.env.VITE_APP_DEV_API}/account/user`;
+  console.log(URL);
   if (!props) return;
 
   try {
