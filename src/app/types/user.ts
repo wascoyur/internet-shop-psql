@@ -1,12 +1,13 @@
 export type User = {
   id?: number;
+  login: string;
   name: string;
   lastName: string;
   firstName: string;
   email: string;
   password: string;
   phone: string;
-  roles: Roles;
+  role: Roles;
 };
 
 export type Roles = {

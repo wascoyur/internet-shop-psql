@@ -68,7 +68,7 @@ const RowView = (props: { data: (string | number | Roles)[] }) => {
 };
 
 const Checker = () => {
-  return <input type="radio" checked={false} />;
+  return <input type="radio" checked={false} onChange={() => {}} />;
 };
 
 const Headers = ({ headers }: { headers: string[] }) => {

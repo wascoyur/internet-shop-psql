@@ -13,6 +13,7 @@ export type UserData = {
   roles: string;
   phone: string;
   name: string;
+  login: string;
 };
 
 type FormRow = {
@@ -46,6 +47,7 @@ export const FormRow = (props: FormRow) => {
       const {
         email,
         password,
+        login,
         firstname,
         lastname,
         name,
@@ -69,9 +71,10 @@ export const FormRow = (props: FormRow) => {
       return {
         email,
         password,
+        login,
         firstName: firstname,
         lastName: lastname,
-        roles: roles(),
+        role: roles(),
         phone,
         name,
       };
@@ -113,6 +116,10 @@ export const FormRow = (props: FormRow) => {
         <div className={widget.user_form_cell}>
           <label form="phone">phone</label>
           <input type="text" name="phone" placeholder="phone" />
+        </div>
+        <div className={widget.user_form_cell}>
+          <label form="phone">login</label>
+          <input type="text" name="login" placeholder="login" />
         </div>
         <div className={widget.user_form_cell}>
           <label form="firstname">first name</label>

@@ -16,6 +16,7 @@ const requiredFields = [
   "roles",
   "phone",
   "name",
+  "login",
 ];
 
 export const isAnyRolesIsExist = (props: Roles) => {
